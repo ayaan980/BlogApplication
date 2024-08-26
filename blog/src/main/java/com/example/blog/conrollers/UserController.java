@@ -44,4 +44,5 @@ public class UserController {
         UserDTO userById = userService.getUserById(userId);
         return ResponseEntity.ok(userById);
     }
+    //dummy
 }
