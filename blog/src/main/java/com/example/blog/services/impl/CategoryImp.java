@@ -43,7 +43,7 @@ public class CategoryImp implements CategoryService {
 
         Category updatedCategory = this.categoryRepo.save(category);
         CategoryDTO categoryDTO1=this.categoryToDTO(updatedCategory);
-        return categoryDTO1;
+        return null;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.example.blog.conrollers;
 
 import com.example.blog.payloads.CategoryDTO;
 import com.example.blog.services.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +18,15 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO){
+    public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO){
         CategoryDTO category = this.categoryService.createCategory(categoryDTO);
         return new ResponseEntity<>(category,HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<CategoryDTO> updateCategory(@RequestBody CategoryDTO categoryDTO,@PathVariable String categoryId){
+    @PutMapping("/{categoryId}")
+    public ResponseEntity<CategoryDTO> updateCategory(@Valid @RequestBody CategoryDTO categoryDTO,@PathVariable String categoryId){
         CategoryDTO categoryDTO1 = this.categoryService.updateCategory(categoryDTO, categoryId);
-        return new ResponseEntity<>(categoryDTO1,HttpStatus.OK);
+        return  ResponseEntity.ok(categoryDTO1);
     }
 
     @DeleteMapping("/{categoryId}")
@@ -42,6 +43,6 @@ public class CategoryController {
     @GetMapping("/{categoryId}")
     public ResponseEntity<CategoryDTO> getCategory(@PathVariable String categoryId){
        CategoryDTO category = this.categoryService.getCategory(categoryId);
-        return new ResponseEntity<>(category,HttpStatus.OK);
+        return ResponseEntity.ok(category);
     }
 }

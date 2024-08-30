@@ -1,10 +1,10 @@
 package com.example.blog.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,6 +22,9 @@ public class Category {
     @Column(name = "title")
     private String categoryTitle;
 
-    @Column(name = "desc")
+    @Column(name = "description")
     private String categoryDesc;
+
+    @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Post> posts=new ArrayList<>();
 }
