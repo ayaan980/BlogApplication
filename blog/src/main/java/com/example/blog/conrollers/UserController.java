@@ -2,6 +2,7 @@ package com.example.blog.conrollers;
 
 import com.example.blog.payloads.UserDTO;
 import com.example.blog.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +19,13 @@ public class UserController {
 
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO  userDTO){
+    public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO  userDTO){
         UserDTO createUserDto = this.userService.createUser(userDTO);
         return new ResponseEntity<>(createUserDto, HttpStatus.CREATED);
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO userDTO,@PathVariable String userId){
+    public ResponseEntity<UserDTO> updateUser(@Valid @RequestBody UserDTO userDTO,@PathVariable String userId){
         UserDTO updatedUser = this.userService.updateUser(userDTO, userId);
         return ResponseEntity.ok(updatedUser);
     }
@@ -44,4 +45,5 @@ public class UserController {
         UserDTO userById = userService.getUserById(userId);
         return ResponseEntity.ok(userById);
     }
+    //dummy
 }
